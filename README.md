@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Running Career</title>
-
-<style>
 
 <body>
 
