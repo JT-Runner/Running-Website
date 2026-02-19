@@ -1,48 +1,67 @@
-<script>
-const sessions = {
-  monday: {
-    title: "Quality Session",
-    text: "2.5km warmup then into strides and the session:  10mins threshold then 2x2mins 5km pace 1 min recovery in between 3 min jog and then 8 x 100m strides"
-  },
-  tuesday: {
-    title: "Easy Run",
-    text: "8km at an easy pace keeping my heart rate controlled and body relaxed"
-  },
-  wednesday: {
-    title: "Easy Run",
-    text: "6km at an easy pace keeping my heart rate controlled and body relaxed. Starting to Taper for a race on Saturday"
-  },
-  thursday: {
-    title: "Easy run + strides",
-    text: "4km easy with 6x100m strides to keep the legs fresh."
-  },
-  friday: {
-    title: "Rest + Mobility",
-    text: "No running. Foam rolling, stretching, light activation.Giving me the best chance at winning on Saturday"
-  },
-  saturday: {
-    title: "Race Day",
-    text: "Hampshire cross country champs AIMING TO WIN"
-  },
-  sunday: {
-    title: "Long Run Day",
-    text: "10km easy to run the nots out of my leg and shakeout before monday training"
+document.addEventListener('DOMContentLoaded', () => {
+  const sessions = {
+    monday: {
+      title: 'Quality Session',
+      text: '2.5 km warm-up, strides, then 10 minutes threshold + 2×2 minutes at 5 km pace (1 minute recovery), 3 minute jog, then 8×100 m strides.'
+    },
+    tuesday: {
+      title: 'Easy Run',
+      text: '8 km at an easy pace, keeping heart rate controlled and body relaxed.'
+    },
+    wednesday: {
+      title: 'Easy Run',
+      text: '6 km easy, focusing on recovery and freshness ahead of Saturday racing.'
+    },
+    thursday: {
+      title: 'Easy Run + Strides',
+      text: '4 km easy with 6×100 m strides to keep the legs fresh.'
+    },
+    friday: {
+      title: 'Rest + Mobility',
+      text: 'No running. Foam rolling, stretching, and light activation for race readiness.'
+    },
+    saturday: {
+      title: 'Race Day',
+      text: 'Competition day: Hampshire Cross Country Championships, aiming to win.'
+    },
+    sunday: {
+      title: 'Long Run Day',
+      text: '10 km easy to loosen up after race day and prepare for Monday training.'
+    }
+  };
+
+  const buttons = document.querySelectorAll('.week-grid button');
+  const display = document.getElementById('session-display');
+
+  if (!buttons.length || !display) {
+    return;
   }
-};
 
-const buttons = document.querySelectorAll(".week-grid button");
-const display = document.getElementById("session-display");
+  const renderSession = (day) => {
+    const session = sessions[day];
 
-buttons.forEach(button => {
-  button.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
+    if (!session) {
+      return;
+    }
 
-    const day = button.dataset.day;
-    display.innerHTML = `
-      <h3>${sessions[day].title}</h3>
-      <p>${sessions[day].text}</p>
-    `;
+    display.replaceChildren();
+
+    const title = document.createElement('h3');
+    title.textContent = session.title;
+
+    const description = document.createElement('p');
+    description.textContent = session.text;
+
+    display.append(title, description);
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      button.classList.add('active');
+      renderSession(button.dataset.day);
+    });
   });
+
+  buttons[0].click();
 });
-</script>
